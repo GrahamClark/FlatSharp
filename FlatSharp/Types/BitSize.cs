@@ -1,4 +1,4 @@
-﻿namespace FlatSharp
+﻿namespace FlatSharp.Types
 {
     public class BitSize
     {

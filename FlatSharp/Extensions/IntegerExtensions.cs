@@ -1,6 +1,8 @@
-﻿namespace FlatSharp
+﻿using FlatSharp.Types;
+
+namespace FlatSharp
 {
-    public static class Extensions
+    public static class IntegerExtensions
     {
         public static int FetchBits(this int word, BitNumber high, BitSize length)
         {
