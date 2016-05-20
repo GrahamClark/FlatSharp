@@ -11,6 +11,7 @@ namespace FlatSharp
                 var word = 0xBEEF;
                 Console.WriteLine(((word >> 12) & (~(-1 << 4))).ToString("X"));
                 Console.WriteLine(FetchBits(word, 15, 4).ToString("X"));
+                Console.WriteLine(word.FetchBits(BitNumber.Fifteen, BitSize.Four).ToHex());
 
             }
             catch (Exception exception)
