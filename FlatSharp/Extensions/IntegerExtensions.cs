@@ -9,10 +9,5 @@ namespace FlatSharp.Extensions
             var mask = ~(-1 << length.Value);
             return word >> (high.Value - length.Value + 1) & mask;
         }
-
-        public static string ToHex(this int number)
-        {
-            return number.ToString("X");
-        }
     }
 }

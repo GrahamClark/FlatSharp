@@ -60,6 +60,7 @@
     <Compile Include="Types\ZStringAddress.cs" />
     <Compile Include="VirtualMachine\ImmutableBytes.cs" />
     <Compile Include="VirtualMachine\Story.cs" />
+    <Compile Include="VirtualMachine\ZString.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
