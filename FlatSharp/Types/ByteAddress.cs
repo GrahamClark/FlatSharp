@@ -46,5 +46,15 @@ namespace FlatSharp.Types
 
             return bytes[Value];
         }
+
+        public byte DereferenceBytes(byte[] bytes)
+        {
+            if (IsOutOfRange(bytes.Length))
+            {
+                throw new InvalidOperationException("out of range");
+            }
+
+            return bytes[Value];
+        }
     }
 }

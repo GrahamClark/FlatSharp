@@ -12,13 +12,10 @@ namespace FlatSharp
         {
             try
             {
-                var address1 = new ByteAddress(1);
-                var bytesA = ImmutableBytes.Create(Encoding.ASCII.GetBytes("Hello world"));
-                var bytesB = ImmutableBytes.WriteByte(bytesA, address1, 65);
-                var firstA = ImmutableBytes.ReadByte(bytesA, address1);
-                var firstB = ImmutableBytes.ReadByte(bytesB, address1);
+                var story = Story.Load("minizork.z3");
+                var version = story.ReadByte(new ByteAddress(0));
 
-                Console.WriteLine($"{firstA} {firstB}");
+                Console.WriteLine(version);
             }
             catch (Exception exception)
             {

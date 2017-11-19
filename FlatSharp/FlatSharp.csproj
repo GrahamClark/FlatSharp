@@ -49,17 +49,22 @@
   <ItemGroup>
     <Compile Include="Types\BitNumber.cs" />
     <Compile Include="Types\BitSize.cs" />
+    <Compile Include="Types\WordAddress.cs" />
     <Compile Include="Types\ByteAddress.cs" />
     <Compile Include="Extensions\IntegerExtensions.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="VirtualMachine\ImmutableBytes.cs" />
+    <Compile Include="VirtualMachine\Story.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy $(SolutionDir)minizork.z3 $(ProjectDir)$(OutDir)</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
