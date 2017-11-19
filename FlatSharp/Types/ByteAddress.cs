@@ -1,4 +1,7 @@
-﻿namespace FlatSharp.Types
+﻿using System;
+using System.Collections.Immutable;
+
+namespace FlatSharp.Types
 {
     public struct ByteAddress
     {
@@ -22,6 +25,26 @@
         public bool IsOutOfRange(int size)
         {
             return !IsInRange(size);
+        }
+
+        public ByteAddress IncrementBy(int offset)
+        {
+            return new ByteAddress(Value + offset);
+        }
+
+        public ByteAddress DecrementBy(int offset)
+        {
+            return IncrementBy(0 - offset);
+        }
+
+        public byte DereferenceBytes(ImmutableArray<byte> bytes)
+        {
+            if (IsOutOfRange(bytes.Length))
+            {
+                throw new InvalidOperationException("out of range");
+            }
+
+            return bytes[Value];
         }
     }
 }
