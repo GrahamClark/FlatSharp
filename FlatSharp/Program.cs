@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Text;
 
 using FlatSharp.Extensions;
 using FlatSharp.Types;
+using FlatSharp.VirtualMachine;
 
 namespace FlatSharp
 {
@@ -11,21 +13,18 @@ namespace FlatSharp
         {
             try
             {
-                const int word = 0xBEEF;
-                Console.WriteLine(((word >> 12) & ~(-1 << 4)).ToString("X"));
-                Console.WriteLine(FetchBits(word, 15, 4).ToString("X"));
-                Console.WriteLine(word.FetchBits(BitNumber.Fifteen, BitSize.Four).ToHex());
+                var address1 = new ByteAddress(1);
+                var bytesA = new ImmutableBytes(Encoding.ASCII.GetBytes("Hello world"));
+                var bytesB = ImmutableBytes.WriteByte(bytesA, address1, 65);
+                var firstA = ImmutableBytes.ReadByte(bytesA, address1);
+                var firstB = ImmutableBytes.ReadByte(bytesB, address1);
+
+                Console.WriteLine($"{firstA} {firstB}");
             }
             catch (Exception exception)
             {
                 Console.WriteLine(exception);
             }
-        }
-
-        private static int FetchBits(int word, int high, int length)
-        {
-            var mask = ~(-1 << length);
-            return word >> (high - length + 1) & mask;
         }
     }
 }

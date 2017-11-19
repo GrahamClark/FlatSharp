@@ -1,8 +1,8 @@
 ﻿namespace FlatSharp.Types
 {
-    public class ByteAddress
+    public struct ByteAddress
     {
-        private ByteAddress(int value)
+        public ByteAddress(int value)
         {
             Value = value;
         }

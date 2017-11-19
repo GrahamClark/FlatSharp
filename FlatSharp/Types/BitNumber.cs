@@ -1,6 +1,6 @@
 ﻿namespace FlatSharp.Types
 {
-    public class BitNumber
+    public struct BitNumber
     {
         private BitNumber(int value)
         {
