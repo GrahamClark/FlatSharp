@@ -34,6 +34,31 @@ namespace FlatSharp.VirtualMachine
             return new Story(dynamicBytes, staticBytes);
         }
 
+        public static Story Load(string fileName)
+        {
+            var file = GetFile(fileName);
+            var length = file.Length;
+
+            if (length < _headerSize)
+            {
+                throw new InvalidOperationException($"{fileName} is not a valid story file");
+            }
+
+            var high = _staticMemoryBaseOffset.AddressOfHighByte().DereferenceBytes(file);
+            var low = _staticMemoryBaseOffset.AddressOfLowByte().DereferenceBytes(file);
+            var dynamicLength = high * 256 + low;
+
+            if (dynamicLength > length)
+            {
+                throw new InvalidOperationException($"{fileName} is not a valid story file");
+            }
+
+            var dynamicMemory = file.Take(dynamicLength).ToArray();
+            var staticMemory = file.Skip(dynamicLength).Take(length - dynamicLength).ToArray();
+
+            return new Story(dynamicMemory, staticMemory);
+        }
+
         public byte ReadByte(ByteAddress address)
         {
             var dynamicSize = DynamicMemory.Size;
@@ -69,29 +94,19 @@ namespace FlatSharp.VirtualMachine
                 .WriteByte(address.AddressOfLowByte(), (byte)low);
         }
 
-        public static Story Load(string fileName)
+        public AbbreviationTableBase GetAbbreviationsTableBase()
         {
-            var file = GetFile(fileName);
-            var length = file.Length;
+            var offset = new WordAddress(24);
+            return new AbbreviationTableBase(ReadWord(offset));
+        }
 
-            if (length < _headerSize)
-            {
-                throw new InvalidOperationException($"{fileName} is not a valid story file");
-            }
+        public ZStringAddress GetAbbreviationZStringAddress(Abbreviation a)
+        {
+            var baseAddress = WordAddress.FromAbbreviationTableBase(GetAbbreviationsTableBase());
+            var abbreviationAddress = baseAddress.IncrementBy(a.Value);
+            var wordAddress = new WordZStringAddress(ReadWord(abbreviationAddress));
 
-            var high = _staticMemoryBaseOffset.AddressOfHighByte().DereferenceBytes(file);
-            var low = _staticMemoryBaseOffset.AddressOfLowByte().DereferenceBytes(file);
-            var dynamicLength = high * 256 + low;
-
-            if (dynamicLength > length)
-            {
-                throw new InvalidOperationException($"{fileName} is not a valid story file");
-            }
-
-            var dynamicMemory = file.Take(dynamicLength).ToArray();
-            var staticMemory = file.Skip(dynamicLength).Take(length - dynamicLength).ToArray();
-
-            return new Story(dynamicMemory, staticMemory);
+            return wordAddress.DecodeWordAddress();
         }
 
         private static byte[] GetFile(string fileName)

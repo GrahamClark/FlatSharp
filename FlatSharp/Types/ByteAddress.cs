@@ -12,14 +12,9 @@ namespace FlatSharp.Types
 
         public int Value { get; }
 
-        public static implicit operator int(ByteAddress address)
-        {
-            return address.Value;
-        }
-
         public bool IsInRange(int size)
         {
-            return 0 <= this && this < size;
+            return 0 <= Value && Value < size;
         }
 
         public bool IsOutOfRange(int size)

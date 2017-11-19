@@ -16,10 +16,5 @@
         public static BitSize Seven = new BitSize(7);
 
         public int Value { get; }
-
-        public static implicit operator int(BitSize bitSize)
-        {
-            return bitSize.Value;
-        }
     }
 }

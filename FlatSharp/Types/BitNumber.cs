@@ -25,10 +25,5 @@
         public static BitNumber Fifteen = new BitNumber(15);
 
         public int Value { get; }
-
-        public static implicit operator int(BitNumber bitNumber)
-        {
-            return bitNumber.Value;
-        }
     }
 }
