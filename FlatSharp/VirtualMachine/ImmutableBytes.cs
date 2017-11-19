@@ -7,7 +7,7 @@ namespace FlatSharp.VirtualMachine
 {
     public class ImmutableBytes
     {
-        public ImmutableBytes(byte[] bytes)
+        private ImmutableBytes(byte[] bytes)
         {
             OriginalBytes = ImmutableArray.Create(bytes);
             Edits = ImmutableDictionary<int, byte>.Empty;
@@ -27,6 +27,11 @@ namespace FlatSharp.VirtualMachine
 
         public int Size => OriginalBytes.Length;
 
+        public static ImmutableBytes Create(byte[] bytes)
+        {
+            return new ImmutableBytes(bytes);
+        }
+
         public static byte ReadByte(ImmutableBytes bytes, ByteAddress address)
         {
             if (address.IsOutOfRange(bytes.Size))
@@ -34,7 +39,7 @@ namespace FlatSharp.VirtualMachine
                 throw new InvalidOperationException("out of range");
             }
 
-            if (bytes.Edits.TryGetValue(address.Value, out byte recordedEdit))
+            if (bytes.Edits.TryGetValue(address.Value, out var recordedEdit))
             {
                 return recordedEdit;
             }
@@ -42,7 +47,10 @@ namespace FlatSharp.VirtualMachine
             return bytes.OriginalBytes[address.Value];
         }
 
-        public static ImmutableBytes WriteByte(ImmutableBytes bytes, ByteAddress address, byte value)
+        public static ImmutableBytes WriteByte(
+            ImmutableBytes bytes,
+            ByteAddress address,
+            byte value)
         {
             if (address.IsOutOfRange(bytes.Size))
             {
