@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.27004.2009
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlatSharp", "FlatSharp\FlatSharp.csproj", "{0676742D-D1B3-425E-8AB8-DE68BB6C7EE0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlatSharp.Tests", "FlatSharp.Tests\FlatSharp.Tests.csproj", "{2D395CBF-B342-48F3-900F-3E3ACA43897F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,8 +17,15 @@ Global
 		{0676742D-D1B3-425E-8AB8-DE68BB6C7EE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0676742D-D1B3-425E-8AB8-DE68BB6C7EE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0676742D-D1B3-425E-8AB8-DE68BB6C7EE0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D395CBF-B342-48F3-900F-3E3ACA43897F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D395CBF-B342-48F3-900F-3E3ACA43897F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D395CBF-B342-48F3-900F-3E3ACA43897F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D395CBF-B342-48F3-900F-3E3ACA43897F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5FDA4058-2579-4458-B63C-CFB2D342F04E}
 	EndGlobalSection
 EndGlobal
